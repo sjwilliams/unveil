@@ -1,13 +1,3 @@
-/**
- * jQuery Unveil
- * A very lightweight jQuery plugin to lazy load images
- * http://luis-almeida.github.com/unveil
- *
- * Licensed under the MIT license.
- * Copyright 2013 Luís Almeida
- * https://github.com/luis-almeida
- */
-
 ;(function($) {
 
   /**
@@ -17,7 +7,7 @@
    * @param  {Function} callback  [description]
    * @return {[type]}             [description]
    */
-  $.fn.unveil = function(options, callback) {
+  $.fn.laziestloader = function(options, callback) {
 
     var $w = $(window),
         $images = this,
@@ -48,10 +38,9 @@
      * media source for the elements' width
      */
     function bindUnveil() {
-      $images.one('unveil', function() {
+      $images.one('laziestloader', function() {
         var source = options.getSource($(this));
         if (source && this.getAttribute('src') !== source) {
-          console.log(source);
           this.setAttribute('src', source);
           if (typeof callback === 'function') callback.call(this);
         }
@@ -62,7 +51,7 @@
      * Remove even handler from elements
      */
     function unbindUnveil() {
-      $images.off('unveil');
+      $images.off('laziestloader');
     }
 
     /**
@@ -79,7 +68,6 @@
         if (targetWidth <= widths[i]) {
             selectedWidth = widths[i];
         }
-        console.log(targetWidth, widths[i], selectedWidth); 
       }
 
       return selectedWidth;
@@ -90,7 +78,7 @@
      * source set and, if they're in the viewport within
      * the threshold, load their media
      */
-    function unveil() {
+    function laziestloader() {
       var $inview = $images.not($loaded).filter(function() {
         var $el = $(this);
         var th = options.threshold;
@@ -104,22 +92,22 @@
         return eb >= wt - th && et <= wb + th;
       });
 
-      $inview.trigger('unveil');
+      $inview.trigger('laziestloader');
       $loaded.add($inview);
     }
 
     bindUnveil();
-    $w.scroll(unveil);
+    $w.scroll(laziestloader);
 
     // reset state on resize
     $w.resize(function(){
       $loaded = $();
       unbindUnveil();
       bindUnveil();
-      unveil();
+      laziestloader();
     });
 
-    unveil();
+    laziestloader();
 
     return this;
   };

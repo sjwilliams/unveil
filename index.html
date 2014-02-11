@@ -119,10 +119,7 @@
 
     <body>
         <h1>The Laziest Loader</h1>
-        <div id="status">
-            <h5>Loading</h5>
-            <p></p>
-        </div>
+        <div id="status"></div>
         <section>
             <div class="lazy">
                 <h2>Basic</h2>
@@ -176,8 +173,8 @@
 
         <script>
         $(function() {
-            $(".lazy img").unveil({threshold:300}, function(){
-                $("#status p").html($(this).attr('src'));
+            $(".lazy img").laziestloader({threshold:300}, function(){
+                $("#status").show().html('<h5>Loading</h5><p>'+ $(this).attr('src') + '</p>').stop(true, true).delay(700).fadeOut(1500);
             });
         });
         </script>
