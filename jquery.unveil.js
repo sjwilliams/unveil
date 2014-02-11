@@ -1,7 +1,7 @@
 ;(function($) {
 
   /**
-   * [unveil description]
+   * tk
    * @param  {[type]}   threshold [description]
    * @param  {[type]}   options   [description]
    * @param  {Function} callback  [description]
@@ -37,7 +37,7 @@
      * Attach event handler that sets correct 
      * media source for the elements' width
      */
-    function bindUnveil() {
+    function bindLoader() {
       $images.one('laziestloader', function() {
         var source = options.getSource($(this));
         if (source && this.getAttribute('src') !== source) {
@@ -50,7 +50,7 @@
     /**
      * Remove even handler from elements
      */
-    function unbindUnveil() {
+    function unbindLoader() {
       $images.off('laziestloader');
     }
 
@@ -96,14 +96,14 @@
       $loaded.add($inview);
     }
 
-    bindUnveil();
+    bindLoader();
     $w.scroll(laziestloader);
 
     // reset state on resize
     $w.resize(function(){
       $loaded = $();
-      unbindUnveil();
-      bindUnveil();
+      unbindLoader();
+      bindLoader();
       laziestloader();
     });
 
