@@ -68,23 +68,31 @@
         list-style: decimal-leading-zero;
         padding: 0;
     }
-    div.lazy {
+    div.example {
         width: 100%;
         margin-top: 50px;
         text-align: center;
     }
-    div.lazy > img {
+    div.example > img {
         display: inline-block;
         width: 100%;
     }
 
-     div.lazy.small > img {
+     div.example.small > img {
         width: 70%;
         margin: auto;
      }
 
-    code{
+    code, pre.code{
         display: block;
+        text-align: left;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        font-size: 13px;
+        line-height: 19px;
+        overflow: auto;
+        padding: 6px 10px;
+        border-radius: 3px;
     }
 
     #status{
@@ -121,32 +129,46 @@
         <h1>The Laziest Loader</h1>
         <div id="status"></div>
         <section>
-            <div class="lazy">
+            <div class="example lazy">
                 <h2>Basic</h2>
                 <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/753e75/fff.png">
                 <code>&lt;img src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/753e75/fff.png&quot;&gt;</code>
             </div>
-            <div class="lazy">
+            <div class="example lazy">
                 <h2>Basic w/ Retina</h2>
                 <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/2a2a2a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/2a2a2a/fff.png">
                 <code>&lt;img src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/2a2a2a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/2a2a2a/fff.png&quot;&gt;</code>
             </div>
-            <div class="lazy small">
+            <div class="example lazy small">
                 <h2>Basic w/ Retina, smaller element</h2>
                 <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/fa0000/fff.png" data-src-retina="http://dummyimage.com/2800x1400/fa0000/fff.png">
                 <code>&lt;img src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/fa0000/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/fa0000/fff.png&quot;&gt;</code>
             </div>
-            <div class="lazy">
+            <div class="example lazy">
                 <h2>Pattern Match</h2>
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{width}}.jpg" data-widths="[320, 640, 900, 1564]">
                 <code>&lt;img src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{width}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
             </div>
-            <div class="lazy small">
+            <div class="example lazy small">
                 <h2>Pattern Match, smaller element</h2>
                 <img src="img/transparent.gif" data-pattern="http://dummyimage.com/{{width}}x700/00ff23/fff.png" data-widths='[300, 700, 1200, 1400]'>
                 <code>&lt;img src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://dummyimage.com/{{width}}x700/00ff23/fff.png&quot; data-widths='[300, 700, 1200, 1400]'&gt;</code>
             </div>
-            <div class="lazy">
+            <div class="example custom">
+                <h2>Custom Source Function</h2>
+                <img src="img/transparent.gif">
+                <pre class="code">
+$(&quot;.custom img&quot;).laziestloader({
+    threshold: 100,
+    getSource: function($el) {
+        var width = $el.width();
+        var height = Math.round(width * 0.5625);
+        return 'http://placekitten.com/'+width+'/'+height;
+    }
+});
+                </pre>
+            </div>
+            <div class="example lazy">
                 <h2>Lots of images</h2>
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/albania-{{width}}.jpg" data-widths="[320, 640, 900, 1564]">
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vietnam-{{width}}.jpg" data-widths="[320, 640, 900, 1564]">
@@ -160,10 +182,10 @@
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/uruguay-{{width}}.jpg" data-widths="[320, 640, 900, 1564]">
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/iceland-{{width}}.jpg" data-widths="[320, 640, 900, 1564]">
             </div>
-            <div class="lazy">
+            <div class="example lazy">
                 <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/e2e2e2/fff.png" data-src-retina="http://dummyimage.com/2800x1400/e2e2e2/fff.png">
             </div>
-            <div class="lazy">
+            <div class="example lazy">
                 <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/4a4a4a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/4a4a4a/fff.png">
             </div>
         </section>
@@ -173,9 +195,22 @@
 
         <script>
         $(function() {
-            $(".lazy img").laziestloader({threshold:300}, function(){
+            var cb = function () {
                 $("#status").show().html('<h5>Loading</h5><p>'+ $(this).attr('src') + '</p>').stop(true, true).delay(700).fadeOut(1500);
-            });
+            };
+
+            // standard methods
+            $(".lazy img").laziestloader({threshold:300}, cb);
+            
+            // custom methods
+            $(".custom img").laziestloader({
+                threshold: 100,
+                getSource: function($el) {
+                    var width = $el.width();
+                    var height = Math.round(width * 0.5625);
+                    return 'http://placekitten.com/'+width+'/'+height;
+                }
+            }, cb);
         });
         </script>
     </body>
