@@ -16,20 +16,27 @@
         th = threshold || 0,
         retina = window.devicePixelRatio > 1,
         attrib = retina? "data-src-retina" : "data-src",
-        images = this,
+        $loaded = $(),
+        $images = this,
         loaded;
 
-    this.one("unveil", function() {
-      var source = this.getAttribute(attrib);
-      source = source || this.getAttribute("data-src");
-      if (source) {
-        this.setAttribute("src", source);
-        if (typeof callback === "function") callback.call(this);
-      }
-    });
+    function bindUnveil() {
+      $images.one("unveil", function() {
+        var source = this.getAttribute(attrib);
+        source = source || this.getAttribute("data-src");
+        if (source && this.getAttribute('src') !== source) {
+          this.setAttribute("src", source);
+          if (typeof callback === "function") callback.call(this);
+        }
+      });
+    }
+
+    function unbindUnveil() {
+      $images.off('unveil');
+    }
 
     function unveil() {
-      var inview = images.filter(function() {
+      var $inview = $images.not($loaded).filter(function() {
         var $e = $(this);
         if ($e.is(":hidden")) return;
 
@@ -41,17 +48,24 @@
         return eb >= wt - th && et <= wb + th;
       });
 
-      loaded = inview.trigger("unveil");
-      images = images.not(loaded);
+      $inview.trigger("unveil");
+      $loaded.add($inview);
     }
 
+    bindUnveil();
     $w.scroll(unveil);
-    $w.resize(unveil);
+
+    // reset state on resize
+    $w.resize(function(){
+      $loaded = $();
+      unbindUnveil();
+      bindUnveil();
+      unveil();
+    });
 
     unveil();
 
     return this;
-
   };
 
 })(window.jQuery || window.Zepto);
