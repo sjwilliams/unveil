@@ -17,21 +17,32 @@
 
     options = $.extend(true, {
       threshold: 0,
-      getSource: function($el){
-        var source;
-        var data = $el.data();
-        if (data.pattern && data.widths && $.isArray(data.widths)) {
-          source = retina ? data.patternRetina : data.pattern;
-          source = source || data.pattern;
-          source = source.replace(/{{WIDTH}}/i, bestFit($el.width(), data.widths));
-        } else {
-          source = retina ? data.srcRetina : data.src;
-          source = source || data.src;
-        }
-
-        return source;
-      }
+      getSource: getSource
     }, options);
+
+
+    /**
+     * Generate source path of image to load. Take into account
+     * type of data supplied and whether or not a retina 
+     * image is needed.
+     * 
+     * @param  {jQuery object} $el
+     * @return {String}
+     */
+    function getSource($el) {
+      var source;
+      var data = $el.data();
+      if (data.pattern && data.widths && $.isArray(data.widths)) {
+        source = retina ? data.patternRetina : data.pattern;
+        source = source || data.pattern;
+        source = source.replace(/{{WIDTH}}/i, bestFit($el.width(), data.widths));
+      } else {
+        source = retina ? data.srcRetina : data.src;
+        source = source || data.src;
+      }
+
+      return source;
+    }
 
     /**
      * Attach event handler that sets correct 
