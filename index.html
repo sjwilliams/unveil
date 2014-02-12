@@ -68,14 +68,13 @@
     div.example {
         width: 100%;
         margin-top: 50px;
-        text-align: center;
     }
     div.example > img {
-        display: inline-block;
+        display: block;
         width: 100%;
     }
 
-     div.example.small > img {
+     div.example.small {
         width: 60%;
         margin: auto;
      }
@@ -83,7 +82,7 @@
     code, pre.code{
         display: block;
         max-width: 900px;
-        margin: auto;
+        margin: 10px auto;
         padding: 6px 10px;
         border-radius: 3px;
         text-align: left;
@@ -92,6 +91,8 @@
         font-size: 13px;
         line-height: 19px;
         overflow: auto;
+        font-family: courier;
+        font-size: 12px;
     }
     
     section > p{
@@ -99,39 +100,52 @@
         font-family: Georgia;
     }
 
-    #status{
-        position: fixed;
-        right: 5%;
-        top: 10px;
-        min-width: 60px;
+    .message{
         border-radius: 5px;
-        background-color: #000;
+        background-color: rgba(0,0,0,0.8);
         color: #fff;
-        padding: 5px;
+        font-size: 11px;
+        padding: 5px 10px;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         -o-user-select: none;
         user-select: none;
         z-index: 11;
+    }
+   
+   .message > p{
+        display: inline-block;
+        margin: 0;
+    }
+
+    .message p .kicker{
+        font-weight: bold;
+        padding-right: 8px;
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+   
+    #status{
+        position: fixed;
+        width: 70%;
+        left: 15%;
+        top: 10px;
         -webkit-transform: translateZ(0);
     }
 
-    #status h5{
-        margin: 0;
-        padding: 0;
+    #justloaded{
+        margin-left: 15px;
     }
-
-    #status p{
-        margin: 0;
-    }
-
     </style>
 
 
     <body>
         <h1>The Laziest Loader</h1>
-        <div id="status"></div>
+        <div id="status" class="message">
+            <p><span class="kicker">Images loaded</span> <span id="total"></span></p>
+            <p id="justloaded"></p>
+        </div>
         <section>
             <div class="example lazy">
                 <h2>Basic</h2>
@@ -188,20 +202,21 @@ $(&quot;.custom img&quot;).laziestloader({
 });
                 </pre>
             </div>
+
             <div class="example lazy">
                 <h2>Lots of images</h2>
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/albania-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vietnam-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/rotterdam-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/fernando-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/scotland-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/ishigaki-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/indonesia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/yorkshire-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vatican-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/uruguay-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/iceland-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-            </div>
+        </div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vietnam-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/rotterdam-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/fernando-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/scotland-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/ishigaki-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/indonesia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/yorkshire-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vatican-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/uruguay-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/iceland-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
         </section>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
@@ -209,15 +224,19 @@ $(&quot;.custom img&quot;).laziestloader({
 
         <script>
         $(function() {
+            var totalLoaded = 0;
+
             var cb = function () {
-                $("#status").show().html('<h5>Loading</h5><p>'+ $(this).attr('src') + '</p>').stop(true, true).delay(700).fadeOut(1500);
+                totalLoaded += 1;
+                $('#justloaded').show().html('<span class="kicker">Loading</span>'+$(this).attr('src')).stop(true, true).delay(700).fadeOut(1500);
+                $('#total').html(totalLoaded);
             };
 
             // standard methods
-            $(".lazy img").laziestloader({threshold:300}, cb);
+            $('.lazy img').laziestloader({threshold:300}, cb);
             
             // custom methods
-            $(".custom img").laziestloader({
+            $('.custom img').laziestloader({
                 threshold: 100,
                 getSource: function($el) {
                     var width = $el.width();
