@@ -74,11 +74,16 @@
     }
 
     div.example:first-child{
-        margin-top: 0;
+        /*margin-top: 0;*/
     }
 
     div.example:first-child h2 {
-        margin-top: 30px;
+        /*margin-top: 30px;*/
+    }
+
+    div.example > p {
+        max-width: 680px;
+        margin: 0;
     }
 
     div.example > img, div.example > video {
@@ -107,6 +112,11 @@
         font-size: 12px;
     }
     
+    .intro code, .intro pre.code{
+        margin-left: 0;
+        max-width: 100%;
+    }
+
     section > p{
         max-width: 900px;
         font-family: Georgia;
@@ -158,66 +168,74 @@
             <p id="justloaded"></p>
         </div>
         <h1>LaziestLoader, be lazy my friend</h1>
-        <p>LaziestLoader is a responive aware lazy loader, mostly for images... but it'll do lots of other things, too.</p>
+        <p>LaziestLoader is a responive-aware lazy loader, mostly for images... but it'll do lots of other things, too.</p>
         <section>
+            <div class="example intro">
+                <h2>Instantiate Plugin</h2>
+                <p>Call the plugin on a jQuery selection. Optionally, you can specify a 'threshold' in the options object, which triggers a load x number of pixels before the item scrolls into the viewport.</p>
+                <code>$('.lazy').laziestloader({threshold:300});</code>
+            </div>
             <div class="example lazy">
                 <h2>Basic</h2>
                 <p>The most basic method simply sets an image as it enters the viewport.</p>
                 <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/753e75/fff.png">
-                <code>&lt;img src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/753e75/fff.png&quot;&gt;</code>
+                <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/753e75/fff.png&quot;&gt;</code>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quasi nobis eos non culpa minus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, fuga, soluta nihil quasi sed amet beatae aliquid reiciendis tenetur aliquam vitae culpa repellendus ex accusantium magnam nulla perferendis eum omnis placeat deserunt perspiciatis deleniti quaerat odio suscipit recusandae saepe a numquam! Accusantium, odio, voluptate quos unde magnam dolores repellendus iure labore voluptatibus quo harum non laborum libero aliquid sit itaque rerum saepe ab eius aperiam ad pariatur aut eveniet ipsa exercitationem atque est molestiae eum nulla illo. Esse debitis blanditiis labore. Delectus, nihil repudiandae aliquam ipsa modi velit architecto tenetur?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, expedita, quo, laboriosam magnam recusandae molestias laborum error distinctio vitae eius quod autem delectus. Quas assumenda deserunt necessitatibus recusandae perspiciatis laboriosam.</p>                
+               
             <div class="example lazy">
                 <h2>Basic w/ Retina</h2>
                 <p>Specify a standard and, optionally, a retina image.</p>
                 <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/2a2a2a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/2a2a2a/fff.png">
-                <code>&lt;img src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/2a2a2a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/2a2a2a/fff.png&quot;&gt;</code>
+                <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/2a2a2a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/2a2a2a/fff.png&quot;&gt;</code>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quasi nobis eos non culpa minus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, fuga, soluta nihil quasi sed amet beatae aliquid reiciendis tenetur aliquam vitae culpa repellendus ex accusantium magnam nulla perferendis eum omnis placeat deserunt perspiciatis deleniti quaerat odio suscipit recusandae saepe a numquam! Accusantium, odio, voluptate quos unde magnam dolores repellendus iure labore voluptatibus quo harum non laborum libero aliquid sit itaque rerum saepe ab eius aperiam ad pariatur aut eveniet ipsa exercitationem atque est molestiae eum nulla illo. Esse debitis blanditiis labore. Delectus, nihil repudiandae aliquam ipsa modi velit architecto tenetur?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, expedita, quo, laboriosam magnam recusandae molestias laborum error distinctio vitae eius quod autem delectus. Quas assumenda deserunt necessitatibus recusandae perspiciatis laboriosam.</p>  
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quasi nobis eos non culpa minus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, fuga, soluta nihil quasi sed amet beatae aliquid reiciendis tenetur aliquam vitae culpa repellendus ex accusantium magnam nulla perferendis eum omnis placeat deserunt perspiciatis deleniti quaerat odio suscipit recusandae saepe a numquam! Accusantium, odio, voluptate quos unde magnam dolores repellendus iure labore voluptatibus quo harum non laborum libero aliquid sit itaque rerum saepe ab eius aperiam ad pariatur aut eveniet ipsa exercitationem atque est molestiae eum nulla illo. Esse debitis blanditiis labore. Delectus, nihil repudiandae aliquam ipsa modi velit architecto tenetur?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, expedita, quo, laboriosam magnam recusandae molestias laborum error distinctio vitae eius quod autem delectus. Quas assumenda deserunt necessitatibus recusandae perspiciatis laboriosam.</p>  
+ 
             <div class="example lazy small">
                 <h2>Basic w/ Retina, smaller element</h2>
                 <p>Basic example always loads the same image, regardess of element width.</p>
                 <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/3a3a3a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/3a3a3a/fff.png">
-                <code>&lt;img src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/3a3a3a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/3a3a3a/fff.png&quot;&gt;</code>
+                <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/3a3a3a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/3a3a3a/fff.png&quot;&gt;</code>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quasi nobis eos non culpa minus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, fuga, soluta nihil quasi sed amet beatae aliquid reiciendis tenetur aliquam vitae culpa repellendus ex accusantium magnam nulla perferendis eum omnis placeat deserunt perspiciatis deleniti quaerat odio suscipit recusandae saepe ium, odio, voluptate quos unde magnam dolores repellendus iure labore voluptatibus quo harum non laborum libero aliquid sit itaque rerum saepe ab eius aperiam ad pariatur aut eveniet ipsa exercitationem atque est molestiae eum nulla illo. Esse debitis blanditiis labore. Delectus, nihil repudiandae aliquam ipsa modi velit architecto tenetur?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, expedita, quo, laboriosam magnam recusandae molestias laborum error distinctio vitae eius quod autem delectus. Quas assumenda deserunt necessitatibus recusandae perspiciatis laboriosam.</p>  
+
             <div class="example lazy">
                 <h2>Pattern Match</h2>
                 <p>Go beyond the basic source setting by providing a URL that has a width substring substituted.</p>
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <code>&lt;img src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
+                <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, quae, ratione, rem animi minus velit odit consequuntur totam similique dolor optio saepe eveniet magni sit sequi veritatis libero error sed nihil cupiditate quo veniam reprehenderit ipsa. Aut, perspiciatis neque quisquam accusantium ex quibusdam aperiam cupiditate sequi alias amet optio velit. Praesentium, fuga, sunt, velit vitae id commodi magnam sed a fugiat cumque nesciunt voluptates sapiente maiores. Id, pariatur aliquam ea! Sit modi aspernatur laborum est ipsum vitae cum veritatis inventore. Eveniet, quaerat incidunt quas aliquid neque iste veritatis temporibus id culpa consequuntur minima repudiandae est explicabo perspiciatis minus consequatur fuga dolor molestiae totam suscipit. Ad, dolores, saepe, ducimus, nobis ullam distinctio quasi alias quisquam rerum tenetur deleniti repellat nostrum necessitatibus aliquam provident eos ex illo id non sapiente molestiae iusto ratione temporibus nulla laudantium. Laboriosam optio explicabo quasi non at. Alias, aliquam, laboriosam, tempora, nostrum ipsa voluptatem illo quidem consequuntur consequatur qui numquam animi magnam in neque esse magni recusandae. Alias, assumenda debitis fugit sed velit hic eos molestiae consequatur! Sed, assumenda, maiores asperiores est doloremque nobis rerum error quam nostrum quaerat blanditiis cum minima libero architecto molestias quo repellendus rem laboriosam quia id harum facilis vero. Neque, adipisci, iure. </p>
+           
             <div class="example lazy small">
                 <h2>Pattern Match, smaller element</h2>
                 <p>Load a smaller image, if possible.</p>
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
-                <code>&lt;img src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
+                <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, nulla nesciunt id quo est. Dolor, fugiat perspiciatis laborum quis obcaecati expedita debitis facilis recusandae odit. Perspiciatis, assumenda, obcaecati, quam, autem porro hic vitae id nulla dicta consequatur corporis deserunt voluptatibus placeat ex aliquam labore atque ipsum! Quas, repellat, debitis, aliquid, est consectetur quaerat autem mollitia iusto repellendus libero porro molestiae adipisci perspiciatis facilis temporibus earum vero assumenda minus accusantium molestias consequatur officiis tenetur voluptates sit sequi sint totam quisquam soluta quasi itaque. Reiciendis, sapiente, recusandae quae praesentium voluptas molestias quaerat quisquam alias est cumque consequuntur ex ut optio blanditiis possimus dolor repellendus nesciunt voluptate. Reprehenderit, perferendis, fugiat quasi aperiam impedit molestias plntore minima maiores vel repellendus sit voluptate cumque at similique nostrum impedit doloribus obcaecati reiciendis optio provident eum magni harum quisquam suscipit quidem ut omnis laudantium aliquid sequi odio doloremque est velit sunt laborum iusto. Placeat, amet, accusantium, quia sit repellendus nemo enim cumque repudiandae debitis ipsam iure minima et dolores deleniti aut recusandae quaerat commodi quo perferendis excepturi fuga quam distinctio rerum minus necessitatibus eum maxime veritatis nostrum assumenda natus harum velit quidem laboriosam fugiat consectetur dicta facere provident. Fuga, et obcaecati consequuntur. Pariatur, illum, hic voluptate velit maxime omnis autem error nostrum nobis sunt rem dolorem magni dicta nisi provident placeat odit laborum alias vitae ipsa quos eaque ipsum facere harum ratione nulla iusto iure aliquid possimus quas facilis labore culpa saepe! Dolorum, omnis, dolore earum cumque labore placeat at consequatur quas id optio atque repudiandae facere libero aut numquam aspernatur inventore.</p>
+           
             <div class="example lazy">
                 <h2>Pattern Match w/ Slugs</h2>
-                <p>You can select a sized image that doesn't use the width value in the file name.</p>
+                <p>You can select a sized image that doesn't use the width value in the file name or path.</p>
                 <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg" data-widths='[{"size":1024,"slug":"slide"}, {"size":2000,
                 "slug":"superJumbo"}]'>
-                <code>&lt;img src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg&quot; data-widths='[{&quot;size&quot;:1024,&quot;slug&quot;:&quot;slide&quot;}, {&quot;size&quot;:2000,
+                <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg&quot; data-widths='[{&quot;size&quot;:1024,&quot;slug&quot;:&quot;slide&quot;}, {&quot;size&quot;:2000,
                 &quot;slug&quot;:&quot;superJumbo&quot;}]'&gt;</code>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quasi nobis eos non culpa minus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, fuga, soluta nihil quasi sed amet beatae aliquid reiciendis tenetur aliquam vitae culpa repellendus ex accusantium magnam nulla perferendis eum omnis placeat deserunt perspiciatis deleniti quaerat odio suscipit recusandae saepe a numquam! Accusantium, odio, voluptate quos unde magnam dolores repellendus iure labore voluptatibus quo harum non laborum libero aliquid sit itaque rerum saepe ab eius aperiam ad pariatur aut eveniet ipsa exercitationem atque est molestiae eum nulla illo. Esse debitis blanditiis labore. Delectus, nihil repudiandae aliquam ipsa modi velit architecto tenetur?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, expedita, quo, laboriosam magnam recusandae molestias laborum error distinctio vitae eius quod autem delectus. Quas assumenda deserunt necessitatibus recusandae perspiciatis laboriosam.</p> 
 
             <div class="example video">
-                <h2>None image: Video, w/ Pattern Match</h2>
+                <h2>Video, w/ Pattern Match</h2>
                 <p>Images aren't the only things with 'src' attributes. Try a video.</p>
                 <video autoplay loop data-pattern="http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4" data-widths="[640, 900]"></video>
-                <pre class="code">&lt;video autoplay loop data-pattern=&quot;http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4&quot; data-widths=&quot;[640, 900]&quot;&gt;&lt;/video&gt;</pre>
+                <pre class="code">&lt;video class=&quot;lazy&quot; autoplay loop data-pattern=&quot;http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4&quot; data-widths=&quot;[640, 900]&quot;&gt;&lt;/video&gt;</pre>
             </div>
 
             <div class="example custom">
                 <h2>Custom Source Function</h2>
+                <p>Need fancier logic to determine the source path? You can write your own.</p>
                 <img src="img/transparent.gif">
                 <pre class="code">
-$(&quot;.custom img&quot;).laziestloader({
+//html
+&lt;img class=&quot;custom&quot; src=&quot;img/transparent.gif&quot;&gt;
+
+// js
+$(&quot;img.custom&quot;).laziestloader({
     threshold: 100,
     getSource: function($el) {
         var width = $el.width();
@@ -271,12 +289,7 @@ $(&quot;.custom img&quot;).laziestloader({
             }, cb);
 
             // custom methods
-            $('.video video').laziestloader({
-                threshold: 100,
-                // setImageSource: false
-            }, function(){
-                console.log('video');
-            });
+            $('.video video').laziestloader({threshold: 100}, cb);
         });
         </script>
     </body>
