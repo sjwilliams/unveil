@@ -18,7 +18,7 @@
     options = $.extend(true, {
       threshold: 0,
       getSource: getSource, // user can override logic to determine element/image source
-      setImageSource: true // if not being used for a simple image src="x", you can use the callback to manipulate any tag anyway you like
+      setSourceMode: true // By default, plugin sets source attribute of the element. Set to false if you would like to, instead, use the callback to completely manage the element on trigger.
     }, options);
 
     /**
@@ -97,7 +97,7 @@
         var source;
         
         // default -- set image source
-        if (options.setImageSource) {
+        if (options.setSourceMode) {
           source = options.getSource($(this));
           if (source && this.getAttribute('src') !== source) {
             this.setAttribute('src', source);

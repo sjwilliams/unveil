@@ -14,7 +14,7 @@
         color: #555;
         font-family: "Helvetica Neue", sans-serif;
         font-weight: 300;
-        line-height: 1.7;
+        line-height: 1.5;
         padding: 90px 30px 300px 30px;
         margin: 0 auto;
         max-width: 1400px;
@@ -33,8 +33,9 @@
     h2 {
         color: #333;
         margin-top: 100px;
-        margin-bottom: 5px;
-        font-size: 1em;
+        margin-bottom: 1px;
+        font-size: 17px;
+        line-height: 19px;
     }
     
     p {
@@ -52,17 +53,19 @@
         font-size: 1.5em;
         color: #CCC;
     }
-    code {
-    }
+
     code > span.red {
         color: #D14;
     }
+
     code > span.blue {
         color: #099;
     }
+
     code > span.purple {
         color: #C0C;
     }
+
     ol {
         list-style: decimal-leading-zero;
         padding: 0;
@@ -83,10 +86,10 @@
 
     div.example > p {
         max-width: 680px;
-        margin: 0;
+        margin: 0 0 9px 0;
     }
 
-    div.example > img, div.example > video {
+    div.example > img, div.example > video, div.example > iframe {
         display: block;
         width: 100%;
     }
@@ -159,7 +162,15 @@
     #justloaded{
         margin-left: 15px;
     }
-    </style>
+
+    @-webkit-keyframes pulse {
+          0% {background-color: #45CEEF;}
+         25% {background-color: #FFF5A5;}
+         50% {background-color: #FFD4DA;}
+         75% {background-color: #99D2E4;}
+         100% {background-color: #D8CAB4;}
+    }
+ </style>
 
 
     <body>
@@ -172,64 +183,75 @@
         <section>
             <div class="example intro">
                 <h2>Instantiate Plugin</h2>
-                <p>Call the plugin on a jQuery selection. Optionally, you can specify a 'threshold' in the options object, which triggers a load x number of pixels before the item scrolls into the viewport.</p>
+                <p>Call the plugin on a jQuery selection. Optionally, specify a 'threshold' in the options object, which triggers a load x number of pixels before the item scrolls into the viewport.</p>
                 <code>$('.lazy').laziestloader({threshold:300});</code>
             </div>
-            <div class="example lazy">
+            <div class="example">
                 <h2>Basic</h2>
-                <p>The most basic method simply sets an image as it enters the viewport.</p>
-                <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/753e75/fff.png">
+                <p>The most basic method simply sets the src attribute as the element enters the viewport.</p>
+                <img class="lazy" src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/753e75/fff.png">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/753e75/fff.png&quot;&gt;</code>
             </div>
                
-            <div class="example lazy">
+            <div class="example">
                 <h2>Basic w/ Retina</h2>
                 <p>Specify a standard and, optionally, a retina image.</p>
-                <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/2a2a2a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/2a2a2a/fff.png">
+                <img class="lazy" src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/2a2a2a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/2a2a2a/fff.png">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/2a2a2a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/2a2a2a/fff.png&quot;&gt;</code>
             </div>
  
-            <div class="example lazy small">
+            <div class="example small">
                 <h2>Basic w/ Retina, smaller element</h2>
                 <p>Basic example always loads the same image, regardess of element width.</p>
-                <img src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/3a3a3a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/3a3a3a/fff.png">
+                <img class="lazy" src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/3a3a3a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/3a3a3a/fff.png">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/3a3a3a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/3a3a3a/fff.png&quot;&gt;</code>
             </div>
 
-            <div class="example lazy">
+            <div class="example">
                 <h2>Pattern Match</h2>
                 <p>Go beyond the basic source setting by providing a URL that has a width substring substituted.</p>
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
+                <img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
             </div>
            
-            <div class="example lazy small">
+            <div class="example small">
                 <h2>Pattern Match, smaller element</h2>
                 <p>Load a smaller image, if possible.</p>
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
+                <img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
             </div>
            
-            <div class="example lazy">
+            <div class="example">
                 <h2>Pattern Match w/ Slugs</h2>
                 <p>You can select a sized image that doesn't use the width value in the file name or path.</p>
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg" data-widths='[{"size":1024,"slug":"slide"}, {"size":2000,
+                <img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg" data-widths='[{"size":1024,"slug":"jumbo"}, {"size":2000,
                 "slug":"superJumbo"}]'>
-                <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg&quot; data-widths='[{&quot;size&quot;:1024,&quot;slug&quot;:&quot;slide&quot;}, {&quot;size&quot;:2000,
+                <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg&quot; data-widths='[{&quot;size&quot;:1024,&quot;slug&quot;:&quot;jumbo&quot;}, {&quot;size&quot;:2000,
                 &quot;slug&quot;:&quot;superJumbo&quot;}]'&gt;</code>
             </div>
 
-            <div class="example video">
-                <h2>Video, w/ Pattern Match</h2>
-                <p>Images aren't the only things with 'src' attributes. Try a video.</p>
-                <video autoplay loop data-pattern="http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4" data-widths="[640, 900]"></video>
-                <pre class="code">&lt;video class=&quot;lazy&quot; autoplay loop data-pattern=&quot;http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4&quot; data-widths=&quot;[640, 900]&quot;&gt;&lt;/video&gt;</pre>
+            <div class="example">
+                <h2>Callback</h2>
+                <p>Pass in a callback to excute custom code after the src attribute has been changed. That's how the fancy black bar above works.</p>
+                <img class="lazy" src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/5a5a5a/fff.png">
+                <pre class="code">
+//html
+&lt;img class=&quot;callback&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/5a5a5a/fff.png&quot;&gt;
+
+// js
+var totalLoaded = 0;
+$(&quot;img.callback&quot;).laziestloader({ threshold: 100, function() {
+        totalLoaded += 1;
+        $(&quot;#total&quot;).html(totalLoaded);
+    }
+});
+                </pre>
             </div>
 
-            <div class="example custom">
+            <div class="example">
                 <h2>Custom Source Function</h2>
                 <p>Need fancier logic to determine the source path? You can write your own.</p>
-                <img src="img/transparent.gif">
+                <img class="custom" src="img/transparent.gif">
                 <pre class="code">
 //html
 &lt;img class=&quot;custom&quot; src=&quot;img/transparent.gif&quot;&gt;
@@ -246,20 +268,67 @@ $(&quot;img.custom&quot;).laziestloader({
                 </pre>
             </div>
 
-            <div class="example lazy">
-                <h2>Lots of images</h2>
-                <img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/albania-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
+            <div class="example">
+                <h2>Video, w/ Pattern Match</h2>
+                <p>Images aren't the only things with 'src' attributes. Try a video.</p>
+                <video class="lazy" autoplay loop data-pattern="http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4" data-widths="[640, 900]"></video>
+                <pre class="code">&lt;video class=&quot;lazy&quot; autoplay loop data-pattern=&quot;http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4&quot; data-widths=&quot;[640, 900]&quot;&gt;&lt;/video&gt;</pre>
             </div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vietnam-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/rotterdam-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/fernando-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/scotland-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/ishigaki-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/indonesia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/yorkshire-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vatican-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/uruguay-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
-            <div class="example lazy"><img src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/iceland-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+
+            <div class="example">
+                <h2>iFrame</h2>
+                <p>iFrames also have src attributes. Keep in mind that some elements, like iFrames, need sizes specified to be useful. Combined with a callback, this can be made to work. <em>Note: This example will not be responsive because the iFrame content from YouTube isn't smart enough to repsond to the changing viewport.</em></p>
+                <iframe class="iframe" data-src="//www.youtube.com/embed/fNlxKH9Jtmc" frameborder="0" allowfullscreen></iframe>
+                <pre class="code">
+// html
+&lt;iframe class=&quot;iframe&quot; data-src=&quot;//www.youtube.com/embed/fNlxKH9Jtmc&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+// js
+$('.iframe').laziestloader({threshold:300}, function(){
+    var $iframe = $(this);
+    var height = Math.round($iframe.width() * 0.5625);
+    $iframe.attr({
+        height: height
+    });
+});
+                </pre>
+            </div>
+
+
+
+            <div class="example">
+                <h2>Completely Custom Behavior /w Callback</h2>
+                <p>Need more control than custom source path generation? For example, you might want to completely rewrite the contents of your element. You can have your callback do all the work, sidestepping much of LaziestLoader's functionality.</p>
+                <div class="override"></div>
+                <pre class="code">
+// html
+&lt;div class=&quot;override&quot;&gt;&lt;/div&gt;
+
+// js
+$('div.override').laziestloader({
+    threshold: 100,
+    setSourceMode: false // this is the important bit!
+}, function(){
+    var height = Math.round($(this).width() * 0.5625);
+    $(this).html('&lt;p style=&quot;text-align:center; height: '+height+'px; line-height:'+height+'px;-webkit-animation: pulse 10s infinite alternate;&quot;&gt;Boom!&lt;/p&gt;')
+});
+                </pre>
+            </div>
+
+            <div class="example">
+                <h2>Lots of images</h2>
+                <img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/albania-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
+            </div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vietnam-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/rotterdam-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/fernando-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/scotland-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/ishigaki-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/indonesia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/yorkshire-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/vatican-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/uruguay-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
+            <div class="example"><img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/iceland-{{size}}.jpg" data-widths="[320, 640, 900, 1564]"></div>
         </section>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
@@ -276,10 +345,21 @@ $(&quot;img.custom&quot;).laziestloader({
             };
 
             // standard methods
-            $('.lazy img').laziestloader({threshold:300}, cb);
+            $('.lazy').laziestloader({threshold:300}, cb);
             
+            // iframe
+            $('.iframe').laziestloader({threshold:300}, function(){
+                cb();
+                var $iframe = $(this);
+                var height = Math.round($iframe.width() * 0.5625);
+
+                $iframe.attr({
+                    height: height
+                });
+            });
+
             // custom methods
-            $('.custom img').laziestloader({
+            $('img.custom').laziestloader({
                 threshold: 100,
                 getSource: function($el) {
                     var width = $el.width();
@@ -288,8 +368,16 @@ $(&quot;img.custom&quot;).laziestloader({
                 }
             }, cb);
 
-            // custom methods
-            $('.video video').laziestloader({threshold: 100}, cb);
+            
+            // override
+            $('div.override').laziestloader({
+                threshold: 100,
+                setSourceMode: false
+            }, function(){
+                cb();
+                var height = Math.round($(this).width() * 0.5625);
+                $(this).html('<p style="text-align:center; height: '+height+'px; line-height:'+height+'px;-webkit-animation: pulse 10s infinite alternate;">Boom!</p>')
+            });
         });
         </script>
     </body>
