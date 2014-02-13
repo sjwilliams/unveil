@@ -7,7 +7,7 @@
    * @param  {Function} callback  [description]
    * @return {[type]}             [description]
    */
-  $.fn.laziestloader = function(options, callback) {
+  var laziestLoader = function(options, callback) {
 
     var $w = $(window),
         $elements = this,
@@ -173,5 +173,7 @@
 
     return this;
   };
+
+  $.fn.laziestloader = $.fn.laziestLoader = $.fn.LaziestLoader = laziestLoader;
 
 })(window.jQuery || window.Zepto);

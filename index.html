@@ -184,7 +184,7 @@
             <div class="example intro">
                 <h2>Instantiate Plugin</h2>
                 <p>Call the plugin on a jQuery selection. Optionally, specify a 'threshold' in the options object, which triggers a load x number of pixels before the item scrolls into the viewport.</p>
-                <code>$('.lazy').laziestloader({threshold:300});</code>
+                <code>$('.lazy').laziestLoader({threshold:300});</code>
             </div>
             <div class="example">
                 <h2>Basic</h2>
@@ -240,7 +240,7 @@
 
 // js
 var totalLoaded = 0;
-$(&quot;img.callback&quot;).laziestloader({ threshold: 100, function() {
+$(&quot;img.callback&quot;).laziestLoader({ threshold: 100, function() {
         totalLoaded += 1;
         $(&quot;#total&quot;).html(totalLoaded);
     }
@@ -257,7 +257,7 @@ $(&quot;img.callback&quot;).laziestloader({ threshold: 100, function() {
 &lt;img class=&quot;custom&quot; src=&quot;img/transparent.gif&quot;&gt;
 
 // js
-$(&quot;img.custom&quot;).laziestloader({
+$(&quot;img.custom&quot;).laziestLoader({
     threshold: 100,
     getSource: function($el) {
         var width = $el.width();
@@ -284,7 +284,7 @@ $(&quot;img.custom&quot;).laziestloader({
 &lt;iframe class=&quot;iframe&quot; data-src=&quot;//www.youtube.com/embed/fNlxKH9Jtmc&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 
 // js
-$('.iframe').laziestloader({threshold:300}, function(){
+$('.iframe').laziestLoader({threshold:300}, function(){
     var $iframe = $(this);
     var height = Math.round($iframe.width() * 0.5625);
     $iframe.attr({
@@ -305,7 +305,7 @@ $('.iframe').laziestloader({threshold:300}, function(){
 &lt;div class=&quot;override&quot;&gt;&lt;/div&gt;
 
 // js
-$('div.override').laziestloader({
+$('div.override').laziestLoader({
     threshold: 100,
     setSourceMode: false // this is the important bit!
 }, function(){
@@ -332,7 +332,7 @@ $('div.override').laziestloader({
         </section>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
-        <script src="jquery.laziestloader.js"></script>
+        <script src="jquery.laziestLoader.js"></script>
 
         <script>
         $(function() {
@@ -340,16 +340,17 @@ $('div.override').laziestloader({
 
             var cb = function () {
                 totalLoaded += 1;
-                $('#justloaded').show().html('<span class="kicker">Loading</span>'+$(this).attr('src')).stop(true, true).delay(700).fadeOut(1500);
+                var src = ( $(this).attr('src') ) ? $(this).attr('src') : 'Custom content';
+                $('#justloaded').show().html('<span class="kicker">Loading</span>'+src).stop(true, true).delay(700).fadeOut(1500);
                 $('#total').html(totalLoaded);
             };
 
             // standard methods
-            $('.lazy').laziestloader({threshold:300}, cb);
+            $('.lazy').laziestLoader({threshold:300}, cb);
             
             // iframe
-            $('.iframe').laziestloader({threshold:300}, function(){
-                cb();
+            $('.iframe').laziestLoader({threshold:300}, function(){
+                cb.call(this);
                 var $iframe = $(this);
                 var height = Math.round($iframe.width() * 0.5625);
 
@@ -359,7 +360,7 @@ $('div.override').laziestloader({
             });
 
             // custom methods
-            $('img.custom').laziestloader({
+            $('img.custom').laziestLoader({
                 threshold: 100,
                 getSource: function($el) {
                     var width = $el.width();
@@ -370,11 +371,11 @@ $('div.override').laziestloader({
 
             
             // override
-            $('div.override').laziestloader({
+            $('div.override').laziestLoader({
                 threshold: 100,
                 setSourceMode: false
             }, function(){
-                cb();
+                cb.call(this);
                 var height = Math.round($(this).width() * 0.5625);
                 $(this).html('<p style="text-align:center; height: '+height+'px; line-height:'+height+'px;-webkit-animation: pulse 10s infinite alternate;">Boom!</p>')
             });
