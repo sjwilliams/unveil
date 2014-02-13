@@ -1,6 +1,7 @@
-#unveil.js
-###A very lightweight plugin to lazy load images for jQuery or Zepto.js
+#laziestload.js
+###A responsive-aware plugin to lazy load images for jQuery or Zepto.js
 
+Speed up page load times by delaying the load of images until they enter -- or are about to enter -- the viewport. Additionally, you can load an image from a selection of different images that are sized correctly for the image element's width, and recheck on 
 
 
 Most of us are familiar with the [Lazy Load](http://www.appelsiini.net/projects/lazyload) plugin by [Mika Tuupola](http://www.appelsiini.net/).
@@ -9,7 +10,6 @@ Lazy Load has some cool options such as custom effects, container, events or dat
 That's what I did and this is my lightweight version of Lazy Load with support for serving high-resolution images to devices with retina displays - less than 1k.
 
 Visit unveil's [project page](http://luis-almeida.github.com/unveil/) to read the documentation and see the demo.
-
 
 
 #### Usage
