@@ -10,16 +10,16 @@
   $.fn.laziestloader = function(options, callback) {
 
     var $w = $(window),
-        $images = this,
+        $elements = this,
         $loaded = $(), // elements with the correct source set
         retina = window.devicePixelRatio > 1,
         loaded;
 
     options = $.extend(true, {
       threshold: 0,
-      getSource: getSource
+      getSource: getSource, // user can override logic to determine element/image source
+      setImageSource: true // if not being used for a simple image src="x", you can use the callback to manipulate any tag anyway you like
     }, options);
-
 
     /**
      * Generate source path of image to load. Take into account
@@ -88,13 +88,22 @@
 
     /**
      * Attach event handler that sets correct 
-     * media source for the elements' width
+     * media source for the elements' width, or 
+     * allows callback to manipulate element
+     * exclusively.
      */
     function bindLoader() {
-      $images.one('laziestloader', function() {
-        var source = options.getSource($(this));
-        if (source && this.getAttribute('src') !== source) {
-          this.setAttribute('src', source);
+      $elements.one('laziestloader', function() {
+        var source;
+        
+        // default -- set image source
+        if (options.setImageSource) {
+          source = options.getSource($(this));
+          if (source && this.getAttribute('src') !== source) {
+            this.setAttribute('src', source);
+            if (typeof callback === 'function') callback.call(this);
+          }
+        } else {
           if (typeof callback === 'function') callback.call(this);
         }
       });
@@ -104,7 +113,7 @@
      * Remove even handler from elements
      */
     function unbindLoader() {
-      $images.off('laziestloader');
+      $elements.off('laziestloader');
     }
 
     /**
@@ -132,7 +141,7 @@
      * the threshold, load their media
      */
     function laziestloader() {
-      var $inview = $images.not($loaded).filter(function() {
+      var $inview = $elements.not($loaded).filter(function() {
         var $el = $(this);
         var th = options.threshold;
         if ($el.is(':hidden')) return;
