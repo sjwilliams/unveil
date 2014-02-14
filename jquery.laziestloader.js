@@ -12,8 +12,7 @@
     var $w = $(window),
         $elements = this,
         $loaded = $(), // elements with the correct source set
-        retina = window.devicePixelRatio > 1,
-        loaded;
+        retina = window.devicePixelRatio > 1;
 
     options = $.extend(true, {
       threshold: 0,
