@@ -17,7 +17,7 @@
 
     options = $.extend(true, {
       threshold: 0,
-      getSource: getSource, // user can override logic to determine element/image source
+      getSource: getSource, // User can override logic to determine element/image source
       setSourceMode: true // By default, plugin sets source attribute of the element. Set to false if you would like to, instead, use the callback to completely manage the element on trigger.
     }, options);
 
@@ -95,8 +95,13 @@
     function bindLoader() {
       $elements.one('laziestloader', function() {
         var source;
-        
-        // default -- set image source
+
+        // set height?
+        if ($(this).data().heightMultiplier) {
+          setHeight.call(this);
+        }
+
+        // set content. default: set element source
         if (options.setSourceMode) {
           source = options.getSource($(this));
           if (source && this.getAttribute('src') !== source) {
@@ -157,6 +162,22 @@
       $inview.trigger('laziestloader');
       $loaded.add($inview);
     }
+
+
+    function setHeight() {
+      var $el = $(this);
+      var data = $el.data();
+      var height;
+      if (data.heightMultiplier) {
+        height = Math.round( $el.width() * data.heightMultiplier );
+        $el.attr({
+          height: height
+        });
+      }
+    }
+
+    // set element dimensions?
+    $elements.each(setHeight);
 
     bindLoader();
     $w.scroll(laziestloader);
