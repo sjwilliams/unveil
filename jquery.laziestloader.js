@@ -169,7 +169,7 @@
       var height;
       if (data.heightMultiplier) {
         height = Math.round( $el.width() * data.heightMultiplier );
-        $el.attr({
+        $el.css({
           height: height
         });
       }
