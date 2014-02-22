@@ -41,15 +41,27 @@ If you have different versions of your image with the width as part of the image
 $("img").laziestloader();
 ```
 
+The result would be along these lines:
+```html
+<img src="path/to/yourimages/image-900.jpg">
+<img src="path/to/yourimages/900/image.jpg">
+```
+
 #####2b. Responsive, by file slug
 If you have different versions of your image with width represented by a slug, you can specify an array of sizes and corresponding slugs.
 ```html
 <img src="transparent.gif" 
-	data-pattern="http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg" 
-	data-widths='[{"size":1024,"slug":"jumbo"}, {"size":2000,"slug":"superJumbo"}]'>
+	data-pattern="path/to/yourimages/image-{{size}}.jpg"
+	data-widths='[{"size":1024,"slug":"big"}, {"size":2000,"slug":"huge"}]'>
 ```
 ```javascript
 $("img").laziestloader();
+```
+
+The result would be one of these:
+```html
+<img src="path/to/yourimages/image-big.jpg">
+<img src="path/to/yourimages/image-huge.jpg">
 ```
 
 #####3. Custom
