@@ -184,45 +184,45 @@
             <div class="example intro">
                 <h2>Instantiate Plugin</h2>
                 <p>Call the plugin on a jQuery selection. Optionally, specify a 'threshold' in the options object, which triggers a load x number of pixels before the item scrolls into the viewport.</p>
-                <code>$('.lazy').laziestLoader({threshold:300});</code>
+                <code>$('.lazy').laziestloader({threshold:300});</code>
             </div>
             <div class="example">
-                <h2>Basic</h2>
+                <h2>Non-responsive</h2>
                 <p>The most basic method simply sets the src attribute as the element enters the viewport.</p>
                 <img class="lazy" src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/753e75/fff.png">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/753e75/fff.png&quot;&gt;</code>
             </div>
                
             <div class="example">
-                <h2>Basic w/ Retina</h2>
-                <p>Specify a standard and, optionally, a retina image.</p>
+                <h2>Non-responsive w/ Retina</h2>
+                <p>Specify a standard and an optional retina image.</p>
                 <img class="lazy" src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/2a2a2a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/2a2a2a/fff.png">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/2a2a2a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/2a2a2a/fff.png&quot;&gt;</code>
             </div>
  
             <div class="example small">
-                <h2>Basic w/ Retina, smaller element</h2>
+                <h2>Non-responsive w/ Retina, smaller element</h2>
                 <p>Basic example always loads the same image, regardess of element width.</p>
                 <img class="lazy" src="img/transparent.gif" data-src="http://dummyimage.com/1400x700/3a3a3a/fff.png" data-src-retina="http://dummyimage.com/2800x1400/3a3a3a/fff.png">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-src=&quot;http://dummyimage.com/1400x700/3a3a3a/fff.png&quot; data-src-retina=&quot;http://dummyimage.com/2800x1400/3a3a3a/fff.png&quot;&gt;</code>
             </div>
 
             <div class="example">
-                <h2>Pattern Match</h2>
-                <p>Go beyond the basic source setting by providing a URL that has a width substring substituted.</p>
+                <h2>Responsive</h2>
+                <p>Go beyond a single source by providing a URL that has a width as part of the path or name.</p>
                 <img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
             </div>
            
             <div class="example small">
-                <h2>Pattern Match, smaller element</h2>
+                <h2>Responsive, smaller element</h2>
                 <p>Load a smaller image, if possible.</p>
                 <img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg" data-widths="[320, 640, 900, 1564]">
                 <code>&lt;img class=&quot;lazy&quot; src=&quot;img/transparent.gif&quot; data-pattern=&quot;http://graphics8.nytimes.com/newsgraphics/2014/01/12/places-to-go/assets/images/namibia-{{size}}.jpg&quot; data-widths=&quot;[320, 640, 900, 1564]&quot;&gt;</code>
             </div>
            
             <div class="example">
-                <h2>Pattern Match w/ Slugs</h2>
+                <h2>Responsive w/ Slugs</h2>
                 <p>You can select a sized image that doesn't use the width value in the file name or path.</p>
                 <img class="lazy" src="img/transparent.gif" data-pattern="http://graphics8.nytimes.com/images/2014/02/12/sports/olympics/20140212-OLYPOD-slide-CS72/20140212-OLYPOD-slide-CS72-{{size}}.jpg" data-widths='[{"size":1024,"slug":"jumbo"}, {"size":2000,
                 "slug":"superJumbo"}]'>
@@ -240,10 +240,9 @@
 
 // js
 var totalLoaded = 0;
-$(&quot;img.callback&quot;).laziestLoader({ threshold: 100, function() {
-        totalLoaded += 1;
-        $(&quot;#total&quot;).html(totalLoaded);
-    }
+$(&quot;img.callback&quot;).laziestloader({ threshold: 100}, function() {
+    totalLoaded += 1;
+    $(&quot;#total&quot;).html(totalLoaded);
 });
                 </pre>
             </div>
@@ -257,7 +256,7 @@ $(&quot;img.callback&quot;).laziestLoader({ threshold: 100, function() {
 &lt;img class=&quot;custom&quot; src=&quot;img/transparent.gif&quot;&gt;
 
 // js
-$(&quot;img.custom&quot;).laziestLoader({
+$(&quot;img.custom&quot;).laziestloader({
     threshold: 100,
     getSource: function($el) {
         var width = $el.width();
@@ -269,7 +268,7 @@ $(&quot;img.custom&quot;).laziestLoader({
             </div>
 
             <div class="example">
-                <h2>Video, w/ Pattern Match</h2>
+                <h2>Video</h2>
                 <p>Images aren't the only things with 'src' attributes. Try a video.</p>
                 <video class="lazy" autoplay loop data-pattern="http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4" data-widths="[640, 900]"></video>
                 <pre class="code">&lt;video class=&quot;lazy&quot; autoplay loop data-pattern=&quot;http://joshwilliams.com/projects/sunset-flipbook/videos/bridge-{{size}}.mp4&quot; data-widths=&quot;[640, 900]&quot;&gt;&lt;/video&gt;</pre>
@@ -284,7 +283,7 @@ $(&quot;img.custom&quot;).laziestLoader({
 &lt;iframe class=&quot;iframe&quot; data-src=&quot;//www.youtube.com/embed/fNlxKH9Jtmc&quot; data-height-multiplier=&quot;0.5625&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 
 // js
-$('.iframe').laziestLoader({threshold:300});
+$('.iframe').laziestloader({threshold:300});
                 </pre>
             </div>
 
@@ -299,7 +298,7 @@ $('.iframe').laziestLoader({threshold:300});
 &lt;div class=&quot;override&quot;&gt;&lt;/div&gt;
 
 // js
-$('div.override').laziestLoader({
+$('div.override').laziestloader({
     threshold: 100,
     setSourceMode: false // this is the important bit!
 }, function(){
@@ -326,7 +325,7 @@ $('div.override').laziestLoader({
         </section>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
-        <script src="jquery.laziestLoader.js"></script>
+        <script src="jquery.laziestloader.js"></script>
 
         <script>
         $(function() {
@@ -340,16 +339,16 @@ $('div.override').laziestLoader({
             };
 
             // standard methods
-            $('.lazy').laziestLoader({threshold:300}, cb);
+            $('.lazy').laziestloader({threshold:300}, cb);
             
             // iframe
-            $('.iframe').laziestLoader({
+            $('.iframe').laziestloader({
                 threshold:300,
                 setHeight: true
             },cb);
 
             // custom methods
-            $('img.custom').laziestLoader({
+            $('img.custom').laziestloader({
                 threshold: 100,
                 getSource: function($el) {
                     var width = $el.width();
@@ -360,7 +359,7 @@ $('div.override').laziestLoader({
 
             
             // override
-            $('div.override').laziestLoader({
+            $('div.override').laziestloader({
                 threshold: 100,
                 setSourceMode: false
             }, function(){

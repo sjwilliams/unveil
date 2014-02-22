@@ -1,12 +1,5 @@
 ;(function($) {
 
-  /**
-   * tk
-   * @param  {[type]}   threshold [description]
-   * @param  {[type]}   options   [description]
-   * @param  {Function} callback  [description]
-   * @return {[type]}             [description]
-   */
   var laziestLoader = function(options, callback) {
 
     var $w = $(window),
@@ -16,8 +9,8 @@
 
     options = $.extend(true, {
       threshold: 0,
-      getSource: getSource, // User can override logic to determine element/image source
-      setSourceMode: true // By default, plugin sets source attribute of the element. Set to false if you would like to, instead, use the callback to completely manage the element on trigger.
+      getSource: getSource,
+      setSourceMode: true // plugin sets source attribute of the element. Set to false if you would like to, instead, use the callback to completely manage the element on trigger.
     }, options);
 
     /**
